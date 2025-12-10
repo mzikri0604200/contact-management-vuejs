@@ -9,7 +9,7 @@ import UserLogin from './components/user/UserLogin.vue'
 import DashboardLayout from './components/DashboardLayout.vue'
 import ContactList from './components/contact/ContactList.vue'
 import UserProfile from './components/user/UserProfile.vue'
-
+import UserLogout from './components/user/UserLogout.vue'
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
@@ -37,7 +37,11 @@ const router = createRouter({
 				{
 					path: 'users/profile',
 					component: UserProfile
-				}
+				},
+				{
+					path: 'users/logout',
+					component: UserLogout
+				},
 			]
 			
 		}

@@ -55,3 +55,13 @@ export const userUpdatePassword = async (token, { password}) => {
     body: JSON.stringify({ password }),
   });
 };
+
+export const userLogout = async (token) => {
+	return await fetch(`${apiUrl}/users/logout`, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      Authorization: token,
+    },
+  });
+}
