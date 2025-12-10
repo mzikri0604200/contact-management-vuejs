@@ -1,3 +1,38 @@
+
+<script setup>
+import { useRouter } from 'vue-router';
+import { reactive } from 'vue';
+import { useLocalStorage } from '@vueuse/core';
+import { userLogin } from '../../lib/api/UserApi';
+import { alertError } from '../../lib/alert';
+
+const router = useRouter() 
+const token = useLocalStorage("token", "")
+
+const user = reactive({
+	username: '',
+	password: ''
+})
+
+async function handleSubmit() {
+	const response = await userLogin(user)
+	const responseBody = await response.json()
+
+	console.log(responseBody);
+
+	if (response.status === 200) {
+		// await alertSuccess('User logged in successfully')
+		token.value = responseBody.data.token
+		await router.push({
+			path: '/dashboard/contacts'
+		})
+	} else {
+		await alertError(responseBody.errors)
+	}
+}
+
+</script>
+
 <template>
 	<div
 		class="animate-fade-in bg-gray-800 bg-opacity-80 p-8 rounded-xl shadow-custom border border-gray-700 backdrop-blur-sm w-full max-w-md">
@@ -9,7 +44,7 @@
 			<p class="text-gray-300 mt-2">Sign in to your account</p>
 		</div>
 
-		<form>
+		<form @submit.prevent="handleSubmit">
 			<div class="mb-5">
 				<label for="username" class="block text-gray-300 text-sm font-medium mb-2">Username</label>
 				<div class="relative">
@@ -18,7 +53,7 @@
 					</div>
 					<input type="text" id="username" name="username"
 						class="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-						placeholder="Enter your username" required>
+						placeholder="Enter your username" v-model="user.username" required>
 				</div>
 			</div>
 
@@ -30,7 +65,7 @@
 					</div>
 					<input type="password" id="password" name="password"
 						class="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-						placeholder="Enter your password" required>
+						placeholder="Enter your password" v-model="user.password" required>
 				</div>
 			</div>
 
