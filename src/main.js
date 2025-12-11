@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-// import './style.css'
 import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -8,6 +7,7 @@ import UserRegister from './components/user/UserRegister.vue'
 import UserLogin from './components/user/UserLogin.vue'
 import DashboardLayout from './components/DashboardLayout.vue'
 import ContactList from './components/contact/ContactList.vue'
+import ContactCreate from './components/contact/ContactCreate.vue'
 import UserProfile from './components/user/UserProfile.vue'
 import UserLogout from './components/user/UserLogout.vue'
 const router = createRouter({
@@ -33,6 +33,10 @@ const router = createRouter({
 				{
 					path: 'contacts',
 					component: ContactList
+				},
+				{
+					path: 'contacts/create',
+					component: ContactCreate
 				},
 				{
 					path: 'users/profile',
