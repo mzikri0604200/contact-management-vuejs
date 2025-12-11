@@ -12,6 +12,7 @@ import ContactEdit from './components/contact/ContactEdit.vue'
 import ContactDetail from './components/contact/ContactDetail.vue'
 import UserProfile from './components/user/UserProfile.vue'
 import UserLogout from './components/user/UserLogout.vue'
+import AddressCreate from './components/address/AddressCreate.vue'
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
@@ -47,6 +48,10 @@ const router = createRouter({
 				{
 					path: 'contacts/:id',
 					component: ContactDetail
+				},
+				{
+					path: 'contacts/:id/addresses/create',
+					component: AddressCreate
 				},
 				{
 					path: 'users/profile',
