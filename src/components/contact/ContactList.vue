@@ -188,7 +188,7 @@ onMounted(() => {
 		<div v-for="contact in contacts" :key="contact.id"
 			class="bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 overflow-hidden card-hover animate-fade-in">
 			<div class="p-6">
-				<RouterLink :to="`/dashboard/contacts/${contact.id}/edit`"
+				<RouterLink :to="`/dashboard/contacts/${contact.id}`"
 					class="block cursor-pointer hover:bg-gray-700 rounded-lg transition-all duration-200 p-3">
 					<div class="flex items-center mb-3">
 						<div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-3 shadow-md">
