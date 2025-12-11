@@ -27,6 +27,7 @@ export const contactList = async (token, { name, email, phone, page }) => {
 		}
 	})
 }
+
 export const contactDelete = async (token, id) => {
 	return await fetch(`${apiUrl}/contacts/${id}`, {
 		method: 'DELETE',
@@ -36,3 +37,25 @@ export const contactDelete = async (token, id) => {
 		}
 	})
 }
+
+export const contactDetail = async (token, id) => {
+	return await fetch(`${apiUrl}/contacts/${id}`, {
+		method: 'GET',
+		headers: {
+			'accept': 'application/json',
+			Authorization: token
+		}
+	})
+}
+
+export const contactUpdate = async (token, id, { first_name, last_name, email, phone }) => {
+	return await fetch(`${apiUrl}/contacts/${id}`, {
+		method: 'PUT',
+		headers: {
+			'content-type': 'application/json',
+			'accept': 'application/json',
+			Authorization: token
+		},
+		body: JSON.stringify({ first_name, last_name, email, phone })
+	})
+};
