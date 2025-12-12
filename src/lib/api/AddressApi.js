@@ -21,3 +21,35 @@ export const addressList = async (token, id) => {
 		}
 	})
 }
+
+export const addressDetail = async (token, id, addressid) => {
+	return fetch(`${apiUrl}/contacts/${id}/addresses/${addressid}`, {
+		method: 'GET',
+		headers: {
+			'accept': 'application/json',
+			Authorization: token
+		}
+	})
+}
+
+export const addressUpdate = async (token, id, addressid, { street, city, province, country, postal_code }) => {
+return fetch(`${apiUrl}/contacts/${id}/addresses/${addressid}`, {
+	method: 'PUT',
+	headers: {
+		'content-type': 'application/json',
+		'accept': 'application/json',
+		Authorization: token
+	},
+	body: JSON.stringify({ street, city, province, country, postal_code })
+})	
+}
+
+export const addressDelete = async (token, id, addressid) => {
+	return fetch(`${apiUrl}/contacts/${id}/addresses/${addressid}`, {
+		method: 'DELETE',
+		headers: {
+			'accept': 'application/json',
+			Authorization: token
+		}
+	})
+}
