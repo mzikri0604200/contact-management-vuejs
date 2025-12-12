@@ -1,11 +1,12 @@
 <script setup>
 import { useLocalStorage } from '@vueuse/core';
 import { onMounted, reactive, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { contactDetail } from '../../lib/api/ContactApi';
-import { addressList } from '../../lib/api/AddressApi';
-import { alertError } from '../../lib/alert';
+import { addressDelete, addressList } from '../../lib/api/AddressApi';
+import { alertConfirm, alertError, alertSuccess } from '../../lib/alert';
 
+const router = useRouter()
 const route = useRoute()
 const token = useLocalStorage("token", "")
 const { id } = route.params
@@ -17,6 +18,24 @@ const contact = reactive({
 	phone: '',
 })
 const addresses = ref([])
+
+async function handleDelete(addressId) {
+
+	if ( !await alertConfirm('Are you sure you want to delete this address?')) {
+		return
+	}
+
+	const response = await addressDelete(token.value, id, addressId)
+	const responseBody = await response.json()
+	console.log(responseBody)
+
+	if (response.status === 200) {
+		await alertSuccess('Address deleted successfully')
+		await fetchAddress()
+	} else {
+		await alertError(responseBody.error)
+	}
+}
 
 async function fetchAddress() {
 	const response = await addressList(token.value, id)
@@ -169,11 +188,11 @@ onMounted( async () => {
 							</p>
 						</div>
 						<div class="flex justify-end space-x-3">
-							<a href="edit_address.html"
+							<RouterLink :to="`/dashboard/contacts/${id}/addresses/${address.id}/edit`"
 								class="px-4 py-2 bg-gradient text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center">
 								<i class="fas fa-edit mr-2"></i> Edit
-							</a>
-							<button
+							</RouterLink>
+							<button @click="handleDelete(address.id)"
 								class="px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center">
 								<i class="fas fa-trash-alt mr-2"></i> Delete
 							</button>
@@ -188,10 +207,10 @@ onMounted( async () => {
 					class="px-5 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 flex items-center shadow-md">
 					<i class="fas fa-arrow-left mr-2"></i> Back
 				</RouterLink>
-				<a href="edit_contact.html"
-					class="px-5 py-3 bg-gradient text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-lg transform hover:-translate-y-0.5 flex items-center">
+				<button @click="handleDelete(id)"
+					class="px-5 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-lg transform hover:-translate-y-0.5 flex items-center">
 					<i class="fas fa-user-edit mr-2"></i> Edit Contact
-				</a>
+				</button>
 			</div>
 		</div>
 	</div>
