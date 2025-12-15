@@ -53,7 +53,7 @@ async function handleSubmit() {
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <i class="fas fa-user text-gray-500"></i>
           </div>
-          <input type="text" id="username" name="username"
+          <input type="text" id="username" name="username" autocomplete="username"
             class="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
             placeholder="Choose a username" required v-model="user.username">
         </div>
@@ -65,7 +65,7 @@ async function handleSubmit() {
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <i class="fas fa-id-card text-gray-500"></i>
           </div>
-          <input type="text" id="name" name="name"
+          <input type="text" id="name" name="name" autocomplete="name"
             class="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
             placeholder="Enter your full name" required v-model="user.name">
         </div>
@@ -77,7 +77,7 @@ async function handleSubmit() {
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <i class="fas fa-lock text-gray-500"></i>
           </div>
-          <input type="password" id="password" name="password"
+          <input type="password" id="password" name="password" autocomplete="current-password"
             class="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
             placeholder="Create a password" required v-model="user.password">
         </div>
@@ -89,7 +89,7 @@ async function handleSubmit() {
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <i class="fas fa-check-double text-gray-500"></i>
           </div>
-          <input type="password" id="confirm_password" name="confirm_password"
+          <input type="password" id="confirm_password" name="confirm_password" autocomplete="current-password"
             class="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
             placeholder="Confirm your password" required v-model="user.confirm_password">
         </div>
