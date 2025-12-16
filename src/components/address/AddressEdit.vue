@@ -5,6 +5,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { alertError } from '../../lib/alert';
 import { onMounted, reactive, ref } from 'vue';
 import AddressForm from '../AddressForm.vue';
+import Loading from '../Loading.vue';
 const route = useRoute()
 const { id, addressId } = route.params
 const token = useLocalStorage('token', '')
@@ -41,8 +42,8 @@ onMounted(async () => {
 </script>
 
 <template>
-	<div v-if="isLoading" class="flex justify-center items-center h-64">
-		<p>Loading address data...</p>
+	<div v-if="isLoading">
+		<Loading/>
 	</div>
 	<AddressForm v-else :isUpdate="true" :data="address" />
 </template>
